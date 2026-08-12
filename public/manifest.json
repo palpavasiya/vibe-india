@@ -1,0 +1,21 @@
+{
+  "name": "Vibe India",
+  "short_name": "Vibe India",
+  "description": "Vibe India is a collection of simple Indian music experiences.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "/Logo_OnlyVector.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/Logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
