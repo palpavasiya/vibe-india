@@ -18,7 +18,7 @@ export default function ShutterLoader({ onComplete }: ShutterLoaderProps) {
       >
         {/* The master background image that we will zoom "through" to see */}
         <img 
-          src="/master.webp" 
+          src="/master.png" 
           alt="Loading Background"
           className="absolute inset-0 w-full h-full object-cover" 
         />

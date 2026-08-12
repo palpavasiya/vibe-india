@@ -11,7 +11,7 @@ export default function InfoPage() {
       {/* Cinematic Background */}
       <div className="fixed inset-0 z-0">
         <m.img 
-          src="/master.webp" 
+          src="/master.png" 
           alt="Background" 
           className="w-full h-full object-cover opacity-30 mix-blend-screen"
           initial={{ scale: 1.1 }}
