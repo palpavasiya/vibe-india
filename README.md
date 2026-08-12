@@ -89,15 +89,15 @@ vibe-india/
 │   ├── youtube.ts                # YouTube API utilities
 │   └── utils.ts                  # Shared utilities
 ├── public/
-│   ├── master.png                # Master artwork
-│   ├── truck.png                 # Truck Driver artwork
-│   ├── salon.png                 # Deluxe Saloon artwork
-│   ├── chai-tapri.png            # Chai Tapri artwork
-│   ├── auto-wala.png             # Auto Rickshaw artwork
-│   ├── bus-wala.png              # Local Bus artwork
-│   ├── railway.png               # Railway Station artwork
-│   ├── highway-dhaba.png         # Highway Dhaba artwork
-│   ├── pan-galla.png             # Pan Shop artwork
+│   ├── master.webp               # Master artwork
+│   ├── truck.webp                # Truck Driver artwork
+│   ├── salon.webp                # Deluxe Saloon artwork
+│   ├── chai-tapri.webp           # Chai Tapri artwork
+│   ├── auto-wala.webp            # Auto Rickshaw artwork
+│   ├── bus-wala.webp             # Local Bus artwork
+│   ├── railway.webp              # Railway Station artwork
+│   ├── highway-dhaba.webp        # Highway Dhaba artwork
+│   ├── pan-galla.webp            # Pan Shop artwork
 │   ├── sounds/                   # Ambient audio files
 │   │   ├── rain.mp3
 │   │   ├── traffic.mp3

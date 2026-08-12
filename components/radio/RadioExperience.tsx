@@ -299,7 +299,7 @@ export default function RadioExperience() {
             </div>
           </div>
           <div className="shrink-0 flex justify-center items-center px-2">
-            <img src="/Logo_Horizontal.png" alt="Vibe India" className="h-14 sm:h-20 opacity-90 drop-shadow-xl object-contain" />
+            <img src="/Logo_Horizontal.webp" alt="Vibe India" className="h-14 sm:h-20 opacity-90 drop-shadow-xl object-contain" />
           </div>
           <div className="flex-1 flex justify-end items-center gap-3 sm:gap-6">
             {/* Mixer Menu */}
