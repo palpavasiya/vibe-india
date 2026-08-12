@@ -8,6 +8,14 @@ interface ShutterLoaderProps {
 }
 
 export default function ShutterLoader({ onComplete }: ShutterLoaderProps) {
+  useEffect(() => {
+    // Safety fallback: if framer-motion fails to trigger onAnimationComplete
+    const timer = setTimeout(() => {
+      onComplete();
+    }, 4500); // 1.5s delay + 2.5s duration = 4s total (adding 0.5s buffer)
+    return () => clearTimeout(timer);
+  }, [onComplete]);
+
   return (
     <LazyMotion features={domAnimation}>
       <m.div 
@@ -30,6 +38,7 @@ export default function ShutterLoader({ onComplete }: ShutterLoaderProps) {
             transition={{ duration: 2.5, ease: [0.76, 0, 0.24, 1], delay: 1.5 }}
             onAnimationComplete={onComplete}
             className="absolute w-full h-full origin-center"
+            style={{ transformOrigin: "center center", willChange: "transform" }}
           >
             <defs>
               <mask id="text-mask">

@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 export const viewport: Viewport = {
@@ -54,10 +55,31 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Vibe India",
+    "url": "https://vibe-india.vercel.app",
+    "description": "Vibe India is a collection of simple Indian music experiences — Truck Driver, Deluxe Saloon, Chai Tapri, Auto Rickshaw and more.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Vibe India",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://vibe-india.vercel.app/Logo.png"
+      }
+    }
+  };
+
   return (
     <html lang="en">
       <body className="antialiased bg-black text-white selection:bg-white/20 app-shell">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         {children}
+        <Analytics />
         <script
           dangerouslySetInnerHTML={{
             __html: `

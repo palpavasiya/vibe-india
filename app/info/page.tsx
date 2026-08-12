@@ -6,7 +6,7 @@ import { ArrowLeft, Radio, Disc3, MonitorPlay, Zap } from "lucide-react";
 
 export default function InfoPage() {
   return (
-    <div className="min-h-[100svh] min-h-[100dvh] bg-black text-white relative flex flex-col selection:bg-white/20">
+    <main className="min-h-[100svh] min-h-[100dvh] bg-black text-white relative flex flex-col selection:bg-white/20">
       
       {/* Cinematic Background */}
       <div className="fixed inset-0 z-0">
@@ -67,7 +67,7 @@ export default function InfoPage() {
           </m.div>
 
           {/* Features Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 w-full">
+          <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 w-full">
             
             <m.div 
               initial={{ opacity: 0, y: 20 }}
@@ -139,11 +139,11 @@ export default function InfoPage() {
               </a>
             </m.div>
 
-          </div>
+          </section>
 
         </LazyMotion>
       </div>
       
-    </div>
+    </main>
   );
 }

@@ -21,12 +21,7 @@ export default function RadioExperience() {
   const [isShareMenuOpen, setIsShareMenuOpen] = useState(false);
   const [isMixerMenuOpen, setIsMixerMenuOpen] = useState(false);
   const { volumes, handleVolumeChange } = useAmbientMixer();
-  const [showShutter, setShowShutter] = useState(() => {
-    if (typeof window !== "undefined") {
-      return !sessionStorage.getItem("hasSeenLoader");
-    }
-    return true;
-  });
+  const [showShutter, setShowShutter] = useState(true);
   const [activeSlug, setActiveSlug] = useState<string>(defaultVibe);
   const initializedRef = useRef(false);
 
@@ -178,9 +173,6 @@ export default function RadioExperience() {
 
   const handleShutterComplete = () => {
     setShowShutter(false);
-    if (typeof window !== "undefined") {
-      sessionStorage.setItem("hasSeenLoader", "true");
-    }
   };
 
   // Sleep Timer
@@ -217,7 +209,7 @@ export default function RadioExperience() {
   }, [sleepTimerMinutes, player]);
 
   return (
-    <div className="fixed inset-0 overflow-hidden bg-black text-white selection:bg-white/20">
+    <main className="fixed inset-0 overflow-hidden bg-black text-white selection:bg-white/20">
       {/* Background Artwork - True edge-to-edge */}
       <StationBackground image={activeStation.image} title={activeStation.title} />
 
@@ -226,7 +218,7 @@ export default function RadioExperience() {
 
       {/* Top Header */}
       <LazyMotion features={domAnimation}>
-        <m.nav
+        <m.header
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
@@ -414,7 +406,7 @@ export default function RadioExperience() {
               <span className="hidden sm:inline text-[10px] uppercase">Info</span>
             </Link>
           </div>
-        </m.nav>
+        </m.header>
       </LazyMotion>
 
       {/* Share Toast */}
@@ -450,9 +442,8 @@ export default function RadioExperience() {
 
       {/* Bottom Interface */}
       {activeStation.status !== "coming-soon" && (
-        <div className="absolute left-0 right-0 bottom-8 sm:bottom-10 md:bottom-12 z-30 pointer-events-none flex flex-col items-center pb-safe">
-
-          <div className="w-full max-w-[95vw] sm:max-w-3xl md:max-w-5xl px-1 sm:px-6 md:px-8 pointer-events-auto flex flex-col items-center justify-center gap-3 sm:gap-6">
+        <footer className="absolute left-0 right-0 bottom-8 sm:bottom-10 md:bottom-12 z-30 pointer-events-none flex flex-col items-center pb-safe">
+          <section className="w-full max-w-[95vw] sm:max-w-3xl md:max-w-5xl px-1 sm:px-6 md:px-8 pointer-events-auto flex flex-col items-center justify-center gap-3 sm:gap-6">
             <RadioPlayer
               stationTitle={activeStation.title}
               stationImage={activeStation.image}
@@ -472,13 +463,12 @@ export default function RadioExperience() {
               activeStation={activeStation}
               onSelectStation={handleSelectStation}
             />
-          </div>
-
-        </div>
+          </section>
+        </footer>
       )}
 
       {/* Toast */}
       <Toast message="COMING SOON" visible={toastVisible} />
-    </div>
+    </main>
   );
 }
