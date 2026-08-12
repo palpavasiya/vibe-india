@@ -22,7 +22,7 @@ export default function ShutterLoader({ onComplete }: ShutterLoaderProps) {
         initial={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.4, ease: "easeOut" }}
-        className="fixed inset-0 z-50 overflow-hidden bg-black flex items-center justify-center pointer-events-auto"
+        className="fixed top-0 left-0 w-screen h-[100svh] z-50 overflow-hidden bg-black flex items-center justify-center pointer-events-auto"
       >
         {/* The master background image that we will zoom "through" to see */}
         <img 
@@ -47,12 +47,13 @@ export default function ShutterLoader({ onComplete }: ShutterLoaderProps) {
                   x="50%" 
                   y="50%" 
                   textAnchor="middle" 
-                  dominantBaseline="middle" 
-                  fontSize="12vw" 
-                  fontWeight="900" 
+                  dominantBaseline="central" 
+                  className="font-sans font-black"
                   fill="black"
-                  className="font-sans"
-                  style={{ letterSpacing: "-0.05em" }}
+                  style={{ 
+                    letterSpacing: "-0.05em",
+                    fontSize: "clamp(2rem, 12vw, 15rem)" 
+                  }}
                 >
                   VIBE INDIA
                 </text>

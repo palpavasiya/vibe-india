@@ -6,7 +6,7 @@
   --color-glass-highlight: rgba(255, 255, 255, 0.04);
   --color-surface: rgba(0, 0, 0, 0.6);
   --color-surface-light: rgba(255, 255, 255, 0.03);
-  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-sans: var(--font-outfit), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
   --animate-spin-slow: spin-slow 8s linear infinite;
   --animate-eq-bar-1: eq-bar 1.2s ease-in-out infinite;

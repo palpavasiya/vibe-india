@@ -1,6 +1,13 @@
 import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
+import { Outfit } from "next/font/google";
 import "./globals.css";
+
+const outfit = Outfit({ 
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-outfit",
+});
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -72,8 +79,8 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en">
-      <body className="antialiased bg-black text-white selection:bg-white/20 app-shell">
+    <html lang="en" className={`${outfit.variable}`}>
+      <body className="antialiased bg-black text-white selection:bg-white/20 app-shell font-sans">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
