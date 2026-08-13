@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo, useRef } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { useRouter, useSearchParams } from "next/navigation";
 import { LazyMotion, domAnimation, m, AnimatePresence } from "framer-motion";
 import { stations, defaultVibe } from "@/data/stations";
@@ -50,39 +51,43 @@ export default function RadioExperience() {
     return () => clearInterval(interval);
   }, []);
 
-  // Online users synchronization (100% deterministic globally synced random ticks)
-  const [onlineCount, setOnlineCount] = useState<number>(34);
+  // Online users synchronization (Real-Time Redis via Upstash)
+  const [onlineCount, setOnlineCount] = useState<number>(14);
   useEffect(() => {
-    const getCountForSecond = (s: number) => {
-      const wave1 = Math.sin(s / 1000) * 50;
-      const wave2 = Math.sin(s / 100) * 20;
-      const wave3 = Math.sin(s / 10) * 5;
-      return Math.floor(100 + wave1 + wave2 + wave3);
-    };
+    // Generate a unique session ID for this browser tab
+    const sessionId = uuidv4();
+    let isMounted = true;
 
-    const isTick = (s: number) => {
-      // 15% probability of updating on any given second (avg 1 update per 6.6 seconds)
-      const rand = Math.abs(Math.sin(s * 1.234) * 10000);
-      return (rand % 100) < 15;
-    };
-
-    const updateCount = () => {
-      const currentSecond = Math.floor(Date.now() / 1000);
-
-      // Look back in time to find the most recent "tick" second
-      let latestTick = currentSecond;
-      while (!isTick(latestTick)) {
-        latestTick--;
+    const pingPresence = async () => {
+      try {
+        const res = await fetch('/api/presence', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ sessionId })
+        });
+        
+        if (res.ok) {
+          const data = await res.json();
+          // Display actual online + 10 as requested
+          if (isMounted && data.activeUsers !== undefined) {
+            setOnlineCount(data.activeUsers + 10);
+          }
+        }
+      } catch (error) {
+        console.error("Failed to ping presence:", error);
       }
-
-      const newCount = getCountForSecond(latestTick);
-      setOnlineCount(prev => prev !== newCount ? newCount : prev);
     };
 
-    updateCount();
-    // Check every second if a new global tick has occurred
-    const interval = setInterval(updateCount, 1000);
-    return () => clearInterval(interval);
+    // Initial ping
+    pingPresence();
+
+    // Ping every 30 seconds
+    const interval = setInterval(pingPresence, 30000);
+
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
   }, []);
 
   useEffect(() => {

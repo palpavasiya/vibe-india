@@ -22,7 +22,7 @@ export default function ShutterLoader({ onComplete }: ShutterLoaderProps) {
         initial={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.4, ease: "easeOut" }}
-        className="fixed top-0 left-0 w-screen h-[100svh] z-50 overflow-hidden bg-black flex items-center justify-center pointer-events-auto"
+        className="fixed top-0 left-0 w-screen h-[100vh] z-50 overflow-hidden bg-black flex items-center justify-center pointer-events-auto"
       >
         {/* The master background image that we will zoom "through" to see */}
         <img 
@@ -31,15 +31,16 @@ export default function ShutterLoader({ onComplete }: ShutterLoaderProps) {
           className="absolute inset-0 w-full h-full object-cover" 
         />
         
-        {/* The SVG Mask that scales up infinitely */}
-        <m.svg
-            initial={{ scale: 1 }}
-            animate={{ scale: 300 }}
-            transition={{ duration: 2.5, ease: [0.76, 0, 0.24, 1], delay: 1.5 }}
-            onAnimationComplete={onComplete}
-            className="absolute w-full h-full origin-center"
-            style={{ transformOrigin: "center center", willChange: "transform" }}
-          >
+        {/* Container for SVG to scale safely on iOS */}
+        <m.div
+          initial={{ scale: 1 }}
+          animate={{ scale: 300 }}
+          transition={{ duration: 2.5, ease: [0.76, 0, 0.24, 1], delay: 1.5 }}
+          onAnimationComplete={onComplete}
+          className="absolute inset-0 origin-center pointer-events-none flex items-center justify-center"
+          style={{ willChange: "transform" }}
+        >
+          <svg className="w-full h-full absolute inset-0">
             <defs>
               <mask id="text-mask">
                 <rect width="100%" height="100%" fill="white" />
@@ -50,10 +51,8 @@ export default function ShutterLoader({ onComplete }: ShutterLoaderProps) {
                   dominantBaseline="central" 
                   className="font-sans font-black"
                   fill="black"
-                  style={{ 
-                    letterSpacing: "-0.05em",
-                    fontSize: "clamp(2rem, 12vw, 15rem)" 
-                  }}
+                  fontSize="11vw"
+                  style={{ letterSpacing: "-0.05em" }}
                 >
                   VIBE INDIA
                 </text>
@@ -65,7 +64,8 @@ export default function ShutterLoader({ onComplete }: ShutterLoaderProps) {
               fill="black" 
               mask="url(#text-mask)" 
             />
-          </m.svg>
+          </svg>
+        </m.div>
       </m.div>
     </LazyMotion>
   );
