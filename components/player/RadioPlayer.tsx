@@ -3,6 +3,7 @@
 import { LazyMotion, domAnimation, m } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Play, Pause, SkipBack, SkipForward, Loader2 } from "lucide-react";
+import ImageWithFallback from "@/components/ui/ImageWithFallback";
 
 interface RadioPlayerProps {
   stationTitle: string;
@@ -109,14 +110,19 @@ export default function RadioPlayer({
           <>
             {/* Vinyl Record Thumbnail */}
             <div className="relative w-10 h-10 sm:w-16 sm:h-16 shrink-0 rounded-full bg-black/50 shadow-[0_4px_10px_rgba(0,0,0,0.5)] border border-white/5 flex items-center justify-center overflow-hidden">
-              <img
-                src={state.currentThumbnail || stationImage}
-                alt="Thumbnail"
-                className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ${
+              <div className={`absolute inset-0 w-full h-full transition-all duration-1000 ${
                   state.isPlaying ? "animate-spin-slow scale-110" : "scale-100"
                 }`}
                 style={{ animationDuration: '10s' }}
-              />
+              >
+                <ImageWithFallback
+                  src={state.currentThumbnail || stationImage}
+                  alt="Thumbnail"
+                  fill
+                  sizes="64px"
+                  className="object-cover rounded-full"
+                />
+              </div>
               {/* Vinyl Hole */}
               <div className="absolute w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-black shadow-[inset_0_1px_3px_rgba(0,0,0,0.8)] z-10 border border-white/10" />
             </div>

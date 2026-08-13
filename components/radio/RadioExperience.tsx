@@ -14,6 +14,7 @@ import VibeSelector from "@/components/radio/VibeSelector";
 import { Play, Pause, Moon } from "lucide-react";
 import Link from "next/link";
 import { useAmbientMixer, AMBIENT_SOUNDS, AmbientSound } from "@/hooks/useAmbientMixer";
+import Image from "next/image";
 
 export default function RadioExperience() {
   const router = useRouter();
@@ -68,13 +69,22 @@ export default function RadioExperience() {
         
         if (res.ok) {
           const data = await res.json();
-          // Display actual online + 10 as requested
+          // Display actual online + 10 as requested with minor fluctuation
           if (isMounted && data.activeUsers !== undefined) {
-            setOnlineCount(data.activeUsers + 10);
+            const baseCount = data.activeUsers + 10;
+            const fluctuation = Math.floor(Math.random() * 5) - 2; // -2 to +2
+            setOnlineCount(Math.max(10, baseCount + fluctuation));
+          }
+        } else {
+          if (isMounted) {
+            setOnlineCount(prev => Math.max(10, prev + Math.floor(Math.random() * 3) - 1));
           }
         }
       } catch (error) {
         console.error("Failed to ping presence:", error);
+        if (isMounted) {
+          setOnlineCount(prev => Math.max(10, prev + Math.floor(Math.random() * 3) - 1));
+        }
       }
     };
 
@@ -295,8 +305,14 @@ export default function RadioExperience() {
               </AnimatePresence>
             </div>
           </div>
-          <div className="shrink-0 flex justify-center items-center px-2">
-            <img src="/Logo_Horizontal.webp" alt="Vibe India" className="h-14 sm:h-20 opacity-90 drop-shadow-xl object-contain" />
+          <div className="shrink-0 flex justify-center items-center px-2 relative h-14 sm:h-20 w-32 sm:w-48">
+            <Image 
+              src="/Logo_Horizontal.webp" 
+              alt="Vibe India" 
+              fill
+              priority
+              className="opacity-90 drop-shadow-xl object-contain" 
+            />
           </div>
           <div className="flex-1 flex justify-end items-center gap-3 sm:gap-6">
             {/* Mixer Menu */}

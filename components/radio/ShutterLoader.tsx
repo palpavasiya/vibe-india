@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { m, domAnimation, LazyMotion } from "framer-motion";
+import Image from "next/image";
+import masterBg from "@/public/master.png";
 
 interface ShutterLoaderProps {
   onComplete: () => void;
@@ -25,11 +27,16 @@ export default function ShutterLoader({ onComplete }: ShutterLoaderProps) {
         className="fixed top-0 left-0 w-screen h-[100vh] z-50 overflow-hidden bg-black flex items-center justify-center pointer-events-auto"
       >
         {/* The master background image that we will zoom "through" to see */}
-        <img 
-          src="/master.png" 
-          alt="Loading Background"
-          className="absolute inset-0 w-full h-full object-cover" 
-        />
+        <div className="absolute inset-0 bg-zinc-900 w-full h-full">
+          <Image 
+            src={masterBg} 
+            alt="Loading Background"
+            fill
+            priority
+            placeholder="blur"
+            className="object-cover" 
+          />
+        </div>
         
         {/* Container for SVG to scale safely on iOS */}
         <m.div

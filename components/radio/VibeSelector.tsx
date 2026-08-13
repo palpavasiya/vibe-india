@@ -3,6 +3,7 @@
 import { LazyMotion, domAnimation, m } from "framer-motion";
 import { stations } from "@/data/stations";
 import { Station } from "@/data/stations";
+import ImageWithFallback from "@/components/ui/ImageWithFallback";
 
 interface VibeSelectorProps {
   activeStation: Station;
@@ -116,11 +117,15 @@ export default function VibeSelector({
                 `}
               >
                 {/* Image */}
-                <img
-                  src={vibe.image}
-                  alt={vibe.title}
-                  className={`w-full h-full object-cover transition-transform duration-500 ${isActive ? 'scale-110' : 'group-hover:scale-110'}`}
-                />
+                <div className="absolute inset-0">
+                  <ImageWithFallback
+                    src={vibe.image}
+                    alt={vibe.title}
+                    fill
+                    sizes="(max-width: 640px) 150px, 200px"
+                    className={`w-full h-full object-cover transition-transform duration-500 ${isActive ? 'scale-110' : 'group-hover:scale-110'}`}
+                  />
+                </div>
 
                 {/* Gradients */}
                 <div className={`absolute inset-0 bg-gradient-to-t transition-opacity duration-300 ${isActive ? 'from-black/80 to-transparent' : 'from-black/60 to-transparent group-hover:from-black/80'}`} />
